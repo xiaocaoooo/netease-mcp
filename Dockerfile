@@ -49,13 +49,17 @@ FROM debian:bookworm-slim
 
 WORKDIR /app
 
-# 安装 libstdc++ 运行库（SEA 二进制需要）
+# 安装 libstdc++ 运行库（SEA 二进制需要）和 wget（健康检查需要）
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libstdc++6 \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 # 从 Stage 2 仅拷贝压缩后的可执行文件
 COPY --from=builder /app/node-sea ./app
+
+# 创建 module 目录（@neteasecloudmusicapienhanced/api 需要）
+RUN mkdir -p /app/module
 
 ENTRYPOINT ["./app"]
 

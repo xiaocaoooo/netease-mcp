@@ -31,7 +31,6 @@ jobs:
 
   docker-test:
     runs-on: ubuntu-latest
-    needs: build-and-check
 
     steps:
       - name: Checkout code
@@ -79,7 +78,7 @@ jobs:
 
   docker-build-push:
     runs-on: ubuntu-latest
-    needs: build-and-check
+    needs: [build-and-check, docker-test]
 
     steps:
       - name: Checkout code

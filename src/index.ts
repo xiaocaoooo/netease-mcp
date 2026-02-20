@@ -72,6 +72,11 @@ app.post('/messages', async (req, res) => {
   await transport.handlePostMessage(req, res);
 });
 
+// Health check endpoint
+app.get('/health', (_req, res) => {
+  res.json({ status: 'ok' });
+});
+
 app.listen(PORT, () => {
   console.log(`Netease MCP Server running on port ${PORT}`);
   console.log(`SSE Endpoint: http://localhost:${PORT}/sse`);
